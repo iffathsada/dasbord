@@ -1,0 +1,1469 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client Vault — Live 3rd-Party Database Security, Storage Locations &amp; Recycle Bin Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',Segoe UI,Arial,sans-serif}
+body{background:#030711;color:#EAF0FF;overflow-x:hidden}
+img{display:block;max-width:100%}
+button{cursor:pointer;transition:all .18s ease}
+button:active{transform:scale(.98)}
+.top{position:sticky;top:0;z-index:35;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;background:rgba(5,10,22,.96);backdrop-filter:blur(12px);border-bottom:1px solid #1E2D4D}
+.logo{display:flex;gap:11px;align-items:center}
+.logoIcon{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#2EEA9A,#4D8DFF,#FFD700);display:grid;place-items:center;font-size:22px;box-shadow:0 6px 20px rgba(46,234,154,.25)}
+.logo b{font-size:18px;letter-spacing:-.02em}
+.logo span{display:block;font-size:10px;letter-spacing:.14em;color:#8FA3C6;text-transform:uppercase}
+.live{display:flex;gap:7px;align-items:center;background:#0A2A1D;border:1px solid #2EEA9A;color:#2EEA9A;padding:7px 13px;border-radius:999px;font-weight:800;font-size:12px}
+.live i{width:9px;height:9px;background:#2EEA9A;border-radius:50%;animation:pl 1.3s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 9px rgba(46,234,154,0)}}
+.wrap{max-width:1340px;margin:0 auto;padding:18px}
+.card{background:linear-gradient(180deg,#101B35,#0C1428);border:1px solid #1E2D4D;border-radius:20px;padding:18px;overflow:hidden;position:relative}
+.card.clickable:hover{transform:translateY(-3px);border-color:#2EEA9A;box-shadow:0 12px 32px rgba(46,234,154,.18)}
+.card.ceoGold{background:linear-gradient(180deg,#1B180C,#0E1324);border:1px solid rgba(255,215,0,.48);box-shadow:0 14px 36px rgba(255,215,0,.09)}
+.card.ceoGold:hover{border-color:#FFD700}
+.card small{color:#8FA3C6;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+.cardImg{height:170px;border-radius:14px;overflow:hidden;margin:-4px -4px 12px;position:relative}
+.cardImg img{width:100%;height:100%;object-fit:cover}
+.cardImg span{position:absolute;left:10px;bottom:10px;background:rgba(4,8,20,.88);border:1px solid rgba(255,255,255,.12);padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800}
+.hero{display:grid;grid-template-columns:1.08fr 1fr;overflow:hidden;background:linear-gradient(135deg,#0F1D3D,#0B142B);border:1px solid #1E2D4D;border-radius:22px}
+.heroText{padding:26px}
+.heroText h1{font-size:33px;line-height:1.14}
+.heroText h1 em{color:#2EEA9A;font-style:normal}
+.heroText p{color:#B8C6E2;margin-top:10px;line-height:1.65;font-size:14px}
+.heroImg{position:relative;min-height:330px;cursor:pointer}
+.heroImg img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.heroBadge{position:absolute;left:13px;bottom:13px;z-index:2;background:rgba(4,8,20,.9);border:1px solid #2EEA9A;padding:9px 12px;border-radius:11px;font-size:12px;font-weight:800}
+.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800;font-size:13px}
+.g{background:linear-gradient(135deg,#2EEA9A,#1FD687);color:#042A1A;box-shadow:0 8px 20px rgba(46,234,154,.22)}
+.g:hover{filter:brightness(1.06)}
+.gold{background:linear-gradient(135deg,#FFD700,#F5B400);color:#2A1E00;box-shadow:0 8px 20px rgba(255,215,0,.22)}
+.gold:hover{filter:brightness(1.06)}
+.ghost{background:rgba(15,26,50,.7);color:#fff;border:1px solid #1E2D4D}
+.ghost:hover{border-color:#2EEA9A}
+.smallBtn{background:#162A55;color:#fff;border:1px solid #274480;padding:8px 12px;border-radius:10px;font-weight:700;font-size:12px}
+.smallBtn:hover{border-color:#2EEA9A;background:#1C356B}
+.notice{margin:14px 0;background:#0A1F16;border:1px solid #1C5A3E;border-radius:13px;padding:12px 15px;font-size:13px;line-height:1.6}
+.notice b{color:#2EEA9A}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.card h2{font-size:26px;margin:6px 0 2px}
+.trend{font-size:12px;font-weight:800;color:#2EEA9A}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-top:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.bar{height:8px;background:#1A2947;border-radius:99px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#2EEA9A,#FFD700)}
+.map{height:240px;border-radius:14px;overflow:hidden;position:relative;border:1px solid #1E2D4D;cursor:pointer}
+.map img{width:100%;height:100%;object-fit:cover;opacity:.92}
+.dot{position:absolute;width:16px;height:16px;background:#2EEA9A;border:2px solid #041A10;border-radius:50%;box-shadow:0 0 0 8px rgba(46,234,154,.28);z-index:2;animation:pl 1.6s infinite}
+.dot.goldDot{background:#FFD700;box-shadow:0 0 0 8px rgba(255,215,0,.28)}
+.dot.blueDot{background:#4D8DFF;box-shadow:0 0 0 8px rgba(77,141,255,.28)}
+.mapTag{position:absolute;transform:translate(-50%,-135%);background:rgba(4,8,20,.92);border:1px solid rgba(46,234,154,.45);padding:4px 9px;border-radius:8px;font-size:10.5px;font-weight:800;white-space:nowrap;z-index:3}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{color:#8FA3C6;text-align:left;padding:11px 8px;border-bottom:1px solid #1E2D4D;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td{padding:12px 8px;border-bottom:1px solid #15223E;vertical-align:middle}
+tr.dbRow{cursor:pointer}
+tr.dbRow:hover{background:#162A55}
+.pill{padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;display:inline-block;white-space:nowrap}
+.ok{background:#0F3323;color:#2EEA9A;border:1px solid rgba(46,234,154,.3)}
+.warn{background:#33250F;color:#F7C948;border:1px solid rgba(247,201,72,.3)}
+.bad{background:#33161D;color:#FF6B7A;border:1px solid rgba(255,107,122,.3)}
+.blue{background:#162A55;color:#7FB0FF;border:1px solid rgba(127,176,255,.3)}
+.goldPill{background:#362C08;color:#FFD700;border:1px solid rgba(255,215,0,.45)}
+input,select{width:100%;padding:12px 13px;border-radius:12px;border:1px solid #1E2D4D;background:#070D1A;color:#fff;outline:none;margin:5px 0;font-size:14px}
+input:focus,select:focus{border-color:#2EEA9A;box-shadow:0 0 0 3px rgba(46,234,154,.14)}
+canvas{width:100%!important;height:175px!important}
+.feedItem{padding:10px 0;border-bottom:1px solid #15223E;display:flex;gap:10px;font-size:13.5px;cursor:pointer}
+.feedItem:hover{color:#2EEA9A}
+.feedItem span{color:#8FA3C6;font-size:12px;display:block}
+.hidden{display:none!important}
+.loginWrap{min-height:100vh;display:grid;place-items:center;padding:18px;background:radial-gradient(700px 340px at 18% 0%,rgba(46,234,154,.2),transparent),radial-gradient(700px 340px at 88% 100%,rgba(255,215,0,.15),transparent),#030711}
+.loginBox{width:100%;max-width:1040px;background:#0F1A32;border:1px solid #24365C;border-radius:26px;overflow:hidden;display:grid;grid-template-columns:1fr 1.08fr;text-align:left;box-shadow:0 30px 90px rgba(0,0,0,.65)}
+.loginLeft{position:relative;min-height:600px}
+.loginLeft img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.loginLeft:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,8,20,.2),rgba(4,8,20,.95))}
+.loginLeftContent{position:absolute;left:22px;right:22px;bottom:22px;z-index:2}
+.loginLeftContent h2{font-size:26px;line-height:1.25}
+.loginLeftContent p{color:#C6D2EA;line-height:1.6;font-size:13px;margin-top:8px}
+.loginRight{padding:26px 28px}
+.shield{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#2EEA9A,#4D8DFF,#FFD700);display:grid;place-items:center;font-size:26px}
+.posGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.posGrid button{padding:12px 6px;border-radius:12px;border:1px solid #1E2D4D;background:#0A1224;color:#fff;font-weight:800;font-size:12.5px}
+.posGrid button.on{background:linear-gradient(135deg,#2EEA9A,#1FD687);color:#042A1A;border-color:#2EEA9A}
+.posGrid button.onGold{background:linear-gradient(135deg,#FFD700,#F5B400);color:#2A1E00;border-color:#FFD700}
+.field label{font-size:11.5px;font-weight:800;color:#8FA3C6;text-transform:uppercase;letter-spacing:.05em}
+.profileChip{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:linear-gradient(90deg,#0D172E,#0A1224);border:1px solid #1E2D4D;border-radius:16px;padding:12px 14px}
+.profileChip img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid #2EEA9A}
+.gallery img{height:110px;border-radius:12px;object-fit:cover;cursor:pointer;width:100%}
+.gallery img:hover{outline:2px solid #2EEA9A}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.84);backdrop-filter:blur(5px);display:none;place-items:center;z-index:100;padding:16px}
+.modal.open{display:grid}
+.modalBox{width:100%;max-width:650px;background:#0F1A32;border:1px solid #2EEA9A;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.75)}
+.modalBox img{width:100%;height:200px;object-fit:cover}
+.modalInner{padding:20px}
+.modalInner p{color:#C6D2EA;line-height:1.7;font-size:14px;margin-top:8px;white-space:pre-line}
+.detailMetaBox{margin-top:12px;background:#080F20;border:1px solid #1E2D4D;border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.7;color:#DCE6FF;white-space:pre-line}
+.xCloseBtn{background:#2D1118;border:1px solid #FF6B7A;color:#FFB8C0;width:32px;height:32px;border-radius:999px;font-weight:900;font-size:14px;display:grid;place-items:center}
+.xCloseBtn:hover{background:#FF6B7A;color:#1A0408}
+.toast{position:fixed;right:18px;bottom:18px;background:#0F3323;border:1px solid #2EEA9A;color:#D6FFE9;padding:13px 17px;border-radius:14px;font-weight:800;font-size:13px;display:none;z-index:120;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.welcome{background:linear-gradient(90deg,#0F1D3D,#0A2A1D);border:1px solid #2EEA9A;border-radius:16px;padding:15px 17px;margin:14px 0}
+.secTitle{margin:24px 0 0;font-size:19px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.secSub{color:#8FA3C6;font-size:13px;margin:4px 0 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tabs button{background:#0A1224;color:#fff;border:1px solid #1E2D4D;padding:10px 14px;border-radius:999px;font-weight:800;font-size:12.5px}
+.tabs button.on{background:#2EEA9A;color:#042A1A;border-color:#2EEA9A}
+.tabs button.goldTab{border-color:rgba(255,215,0,.5);color:#FFD700}
+.tabs button.goldTab.on{background:#FFD700;color:#2A1E00;border-color:#FFD700}
+.tabs button:disabled{opacity:.32;cursor:not-allowed}
+.pwdRow{position:relative}
+.pwdToggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#162A55;border:1px solid #1E2D4D;color:#B8C6E2;font-size:11px;font-weight:800;padding:5px 9px;border-radius:8px}
+.locGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:12px}
+.locCard{background:linear-gradient(180deg,#111D3A,#0B1326);border:1px solid #1E2D4D;border-radius:18px;padding:16px;cursor:pointer;transition:all .18s ease}
+.locCard:hover{transform:translateY(-3px);border-color:#2EEA9A;box-shadow:0 12px 28px rgba(46,234,154,.16)}
+@media(max-width:940px){
+  .loginBox{grid-template-columns:1fr}
+  .loginLeft{min-height:280px}
+  .kpis,.g4,.locGrid{grid-template-columns:1fr 1fr}
+  .g3,.hero{grid-template-columns:1fr}
+  .heroImg{min-height:230px}
+}
+@media(max-width:520px){
+  .kpis,.g4,.posGrid,.locGrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="login" class="loginWrap">
+  <div class="loginBox">
+    <div class="loginLeft">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&amp;q=80" alt="Secure Data Center" onerror="this.src='https://placehold.co/800x600/0F1D3D/2EEA9A?text=Secure+Data+Center'">
+      <div class="loginLeftContent">
+        <div style="display:inline-block;background:linear-gradient(135deg,#FFD700,#2EEA9A);color:#041A10;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:900">🛡️ DBA ENGINEER &amp; ADMIN SECURED • LIVE VAULT</div>
+        <h2 style="margin-top:10px">Your Data is Safe.<br>3 Copies. 3 Places.</h2>
+        <p>Cloud Backup • Second Cloud Copy • Internal Hard Copy<br>Select your <b>Position (CEO, Project Manager, or Staff)</b>, enter your <b>Full Name, Mail ID &amp; Password</b>, and sign in to view your role-permitted dashboard.</p>
+        <p style="margin-top:10px;color:#2EEA9A;font-weight:800">Role-Isolated • Live Telemetry • 1-Click Recycle Bin Recovery</p>
+      </div>
+    </div>
+
+    <div class="loginRight">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="shield">🛡️</div>
+        <span style="background:#0A2A1D;border:1px solid #2EEA9A;color:#2EEA9A;padding:6px 11px;border-radius:999px;font-size:11px;font-weight:800">● LIVE • 3-Copy Vault Online</span>
+      </div>
+
+      <h1 style="font-size:27px;margin-top:12px">Client Vault Sign In</h1>
+      <p style="color:#8FA3C6;font-size:13px;line-height:1.55;margin-top:4px">Choose your position, enter your Name, Mail ID &amp; Password, and open your role-specific dashboard.</p>
+
+      <p style="font-size:11.5px;font-weight:800;color:#8FA3C6;margin-top:14px;letter-spacing:.05em">1. SELECT YOUR POSITION</p>
+      <div class="posGrid" id="roleBtns">
+        <button type="button" class="onGold" onclick="setRole(this,'CEO')">👑 CEO</button>
+        <button type="button" onclick="setRole(this,'PROJECT_MANAGER')">💼 Project Manager</button>
+        <button type="button" onclick="setRole(this,'STAFF')">👤 Staff</button>
+      </div>
+
+      <div id="roleAccessBox" style="background:#0A1224;border:1px solid rgba(255,215,0,.45);border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.65;color:#E5ECFF">
+        👑 <b style="color:#FFD700">CEO Full Executive Access:</b> System Status • 3-Copy Backup &amp; Storage Locations • Full Databases • <b>Who Logged In</b> • <b>Who Deleted Data &amp; Recycle Bin Restore</b>
+      </div>
+
+      <form onsubmit="goDash(event)" style="margin-top:12px">
+        <div style="display:grid;grid-template-columns:1.35fr 0.65fr;gap:10px">
+          <div class="field">
+            <label for="fullName">Full Name *</label>
+            <input id="fullName" value="Mohammadu Ansar Sumaiya" placeholder="Enter your Full Name" required>
+          </div>
+          <div class="field">
+            <label for="empId">ID</label>
+            <input id="empId" value="CEO-001" placeholder="CEO-001">
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:4px">
+          <label for="mailId">Mail ID *</label>
+          <input id="mailId" type="email" value="sumaiyaansar239@gmail.com" placeholder="Enter your Mail ID" required>
+        </div>
+
+        <div class="field" style="margin-top:4px">
+          <label for="pwd">Password *</label>
+          <div class="pwdRow">
+            <input id="pwd" type="password" value="Vault@2026" placeholder="Enter your Password" required>
+            <button type="button" class="pwdToggle" onclick="toggleLoginPwd()" id="pwdToggleBtn">SHOW</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn g" style="width:100%;padding:14px;font-size:14.5px;margin-top:14px">Sign In &amp; Open My Dashboard →</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="dash" style="display:none">
+  <div class="top">
+    <div class="logo">
+      <div class="logoIcon">🛡️</div>
+      <div><b>Client Vault Dashboard</b><span>Database Engineer &amp; DBA Admin • Live Telemetry</span></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span class="live"><i></i> LIVE</span>
+      <span style="font-size:12px;color:#2EEA9A;font-weight:800" id="roleLabel">👑 CEO</span>
+      <button type="button" class="btn ghost" style="padding:8px 14px" onclick="logoutVault()">Logout</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="profileChip" id="profileCard">
+      <img id="profileImg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&amp;q=80" alt="Profile">
+      <div style="flex:1;min-width:210px">
+        <b id="profileName" style="font-size:16px">Mohammadu Ansar Sumaiya</b>
+        <div id="profileMeta" style="color:#8FA3C6;font-size:12px">CEO • CEO-001 • sumaiyaansar239@gmail.com</div>
+        <div id="profileAccess" style="color:#2EEA9A;font-size:12px;font-weight:700;margin-top:2px">Access: Full View</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="smallBtn" onclick="openModal('profile')">My Profile →</button>
+        <button type="button" class="smallBtn" onclick="triggerLivePulse()">⚡ Live Sync Pulse</button>
+      </div>
+    </div>
+
+    <div class="welcome">
+      <h2 id="welcomeTitle">Welcome, Mohammadu Ansar Sumaiya</h2>
+      <p id="welcomeText" style="color:#B8C6E2;margin-top:6px;line-height:1.6;font-size:14px"></p>
+      <p id="accessLine" style="color:#2EEA9A;margin-top:8px;font-size:13px;font-weight:700"></p>
+    </div>
+
+    <div id="hiddenNotice" style="background:#1A0F0F;border:1px solid #5A1A1A;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.6;margin-bottom:6px"></div>
+
+    <div class="tabs" id="tabs">
+      <button type="button" class="on" data-tab="all" onclick="showSection('all',this)">All Permitted Sections</button>
+      <button type="button" data-tab="status" onclick="showSection('status',this)">System Status</button>
+      <button type="button" data-tab="backup" onclick="showSection('backup',this)">Backup &amp; Locations</button>
+      <button type="button" data-tab="db" id="tabDb" onclick="showSection('db',this)">Databases</button>
+      <button type="button" data-tab="forensic" id="tabForensic" class="goldTab" onclick="showSection('forensic',this)">👑 CEO Login &amp; Recycle Bin</button>
+      <button type="button" data-tab="security" id="tabSecurity" onclick="showSection('security',this)">Security</button>
+    </div>
+
+    <div class="hero" id="sec-hero">
+      <div class="heroText">
+        <div style="font-size:11px;letter-spacing:.14em;color:#2EEA9A;font-weight:800">● DATABASE SECURED • LIVE TELEMETRY • <span id="heroRole">CEO VIEW</span></div>
+        <h1>Your Data is Safe.<br><em>3 Copies. 3 Places.</em></h1>
+        <p>Cloud Backup • Second Cloud Copy • Internal Hard Copy<br>Live replication across regions, instant Recycle Bin protection, and role-isolated visibility active.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+          <button type="button" class="btn g" onclick="guard('backup',()=>openModal('backup'))">View Backup Details</button>
+          <button type="button" class="btn ghost" onclick="triggerLivePulse()">↻ Refresh Live</button>
+          <button type="button" class="btn gold" id="btnCeoVaultJump" onclick="guard('forensic',()=>jumpToCeoVault())">👑 CEO Recycle Bin &amp; Logins</button>
+        </div>
+      </div>
+      <div class="heroImg" onclick="openModal('datacenter')">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&amp;q=80" alt="Data Center">
+        <div class="heroBadge">Click Image — Data Center • <span id="heroLiveUptime">99.99%</span> Uptime • Live</div>
+      </div>
+    </div>
+
+    <div class="notice">🛡️ <b>LIVE 3RD-PARTY CLIENT VAULT</b> &nbsp;|&nbsp; Real-Time Telemetry &nbsp;|&nbsp; Strict Role Isolation &nbsp;|&nbsp; <span id="roleNotice">CEO — Full Executive View</span> &nbsp; <button type="button" class="smallBtn" onclick="openRoleSummaryModal()">My Role Permissions →</button></div>
+
+    <div id="sec-gallery">
+      <h3 class="secTitle">Vault Infrastructure Gallery — Click Any Image</h3>
+      <p class="secSub">Data Center • Cloud 1 • Cloud 2 • Security Shield • DBA Team • Office Server • Telemetry • Hard Copy</p>
+      <div class="g4 gallery" style="margin-top:10px">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&amp;q=80" alt="Data Center" onclick="openModal('datacenter')">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&amp;q=80" alt="Cloud 1" onclick="openModal('cloud1')">
+        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&amp;q=80" alt="Security" onclick="openModal('security')">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&amp;q=80" alt="DBA Team" onclick="openModal('team')">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&amp;q=80" alt="Office Vault" onclick="openModal('office')">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&amp;q=80" alt="Performance" onclick="openModal('performance')">
+        <img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=600&amp;q=80" alt="Hard Copy" onclick="openModal('hardcopy')">
+        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&amp;q=80" alt="Storage Map" onclick="openModal('map')">
+      </div>
+    </div>
+
+    <div id="sec-forensic" class="hidden" style="margin-top:18px">
+      <h3 class="secTitle" style="color:#FFD700">👑 CEO Exclusive — System Login History &amp; Data Deletion Recycle Bin Vault</h3>
+      <p class="secSub">Only CEO can view who logged into the system, who deleted any database record, click <b>✕</b> to inspect full deletion forensics, and restore deleted data back from the Recycle Bin.</p>
+
+      <div class="kpis" style="margin-top:12px">
+        <div class="card ceoGold">
+          <small style="color:#FFD700">Total System Logins</small>
+          <h2 id="ceoKpiLogins">0</h2>
+          <div class="trend" style="color:#FFD700">CEO • Project Manager • Staff Tracked</div>
+        </div>
+        <div class="card ceoGold">
+          <small style="color:#FFD700">Deleted Events Caught</small>
+          <h2 id="ceoKpiDeleted">0</h2>
+          <div class="trend" style="color:#FF8A8A">100% Captured in Recycle Bin</div>
+        </div>
+        <div class="card ceoGold">
+          <small style="color:#FFD700">Awaiting Recycle Restore</small>
+          <h2 id="ceoKpiPendingRestore">0</h2>
+          <div class="trend">Click ✕ for Details or Restore</div>
+        </div>
+        <div class="card ceoGold">
+          <small style="color:#FFD700">Restored to Live DB</small>
+          <h2 id="ceoKpiRestored">0</h2>
+          <div class="trend">Zero Permanent Data Loss</div>
+        </div>
+      </div>
+
+      <div class="card ceoGold" style="margin-top:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+          <div>
+            <h3 style="color:#FFD700">1. System Login History — Who Logged In (CEO Only)</h3>
+            <p style="color:#B8C6E2;font-size:12.5px;margin-top:2px">Live audit log of every CEO, Project Manager, and Staff sign-in (Name, Mail ID, Role, Time &amp; Status).</p>
+          </div>
+          <select id="loginRoleFilter" onchange="renderLoginHistoryTable()" style="width:auto;margin:0;padding:8px 12px;font-size:12px">
+            <option value="ALL">All Positions</option>
+            <option value="CEO">CEO Only</option>
+            <option value="PROJECT_MANAGER">Project Manager Only</option>
+            <option value="STAFF">Staff Only</option>
+          </select>
+        </div>
+
+        <div style="overflow-x:auto">
+          <table style="min-width:740px">
+            <thead>
+              <tr>
+                <th>Login Time</th>
+                <th>Full Name</th>
+                <th>Position</th>
+                <th>Mail ID</th>
+                <th>Device / IP Mask</th>
+                <th>Auth Status</th>
+              </tr>
+            </thead>
+            <tbody id="loginHistoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card ceoGold" style="margin-top:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+          <div>
+            <h3 style="color:#FFD700">2. Data Deletion Forensics &amp; Recycle Bin Restore (CEO Only)</h3>
+            <p style="color:#B8C6E2;font-size:12.5px;margin-top:2px">Click the <b>✕</b> button on any row to view full deletion details (who deleted, timestamp, DB/table, payload &amp; snapshot ID) or click <b>Restore Data</b>.</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select id="recycleFilter" onchange="renderDeletionRecycleTable()" style="width:auto;margin:0;padding:8px 12px;font-size:12px">
+              <option value="ALL">All Recycle Bin Items</option>
+              <option value="In Recycle Bin">In Recycle Bin (Pending Restore)</option>
+              <option value="Restored">Restored to Live DB</option>
+            </select>
+            <button type="button" class="smallBtn" style="border-color:#FF6B7A;color:#FFB8C0" onclick="simulateDeletionAlert()">+ Simulate Deletion Event</button>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto">
+          <table style="min-width:900px">
+            <thead>
+              <tr>
+                <th>Deleted Time</th>
+                <th>Deleted By (Name &amp; Role)</th>
+                <th>Mail ID</th>
+                <th>Deleted Data (DB / Table / Record)</th>
+                <th>Recycle Bin Status</th>
+                <th style="text-align:right">Inspect (✕) &amp; Restore</th>
+              </tr>
+            </thead>
+            <tbody id="deletionRecycleBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="sec-status">
+      <h3 class="secTitle">2. System Status — Live</h3>
+      <p class="secSub" id="statusSub"></p>
+      <div class="kpis">
+        <div class="card clickable" onclick="guard('status',()=>openModal('status'))">
+          <div class="cardImg" style="height:90px"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&amp;q=80" alt="Online"></div>
+          <small>System Status</small>
+          <h2 id="liveStatusVal">All Online</h2>
+          <div class="trend" id="liveStatusSub">All Services Running • Live</div>
+          <button type="button" class="smallBtn" style="margin-top:10px">View Details →</button>
+        </div>
+        <div class="card clickable" onclick="guard('status',()=>openModal('uptime'))">
+          <div class="cardImg" style="height:90px"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&amp;q=80" alt="Uptime"></div>
+          <small>Uptime</small>
+          <h2 id="liveUptimeVal">99.99%</h2>
+          <div class="trend">SLA Met • Live Heartbeat</div>
+          <button type="button" class="smallBtn" style="margin-top:10px">View Uptime →</button>
+        </div>
+        <div class="card clickable" onclick="guard('backup',()=>openModal('backup'))">
+          <div class="cardImg" style="height:90px"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&amp;q=80" alt="Backup"></div>
+          <small>Last Backup</small>
+          <h2 id="liveBackupVal">Today 02:00 AM</h2>
+          <div class="trend" id="liveBackupSub">Verified • 3 Copies</div>
+          <button type="button" class="smallBtn" style="margin-top:10px">View Backup →</button>
+        </div>
+        <div class="card clickable" id="cardSecurityScore" onclick="guard('security',()=>openModal('security'))">
+          <div class="cardImg" style="height:90px"><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&amp;q=80" alt="Security"></div>
+          <small>Security Score</small>
+          <h2 id="liveSecScoreVal">98 / 100</h2>
+          <div class="trend">0 Threats • Recycle Vault Active</div>
+          <div class="bar"><i id="liveSecBar" style="width:98%"></i></div>
+          <button type="button" class="smallBtn" style="margin-top:10px">View Security →</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="sec-backup">
+      <h3 class="secTitle">3. Backup Status &amp; Data Save Locations — 3 Copies, 3 Places</h3>
+      <p class="secSub">Click any backup copy or storage location card to inspect live replication &amp; saved datasets</p>
+      <div class="g3">
+        <div class="card clickable" onclick="guard('backup',()=>openModal('cloud1'))">
+          <div class="cardImg"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&amp;q=80" alt="Cloud 1"><span>CLOUD 1 • MAIN</span></div>
+          <small>1 • Cloud Backup</small>
+          <h3 style="margin:8px 0 6px">Cloud Backup — Main</h3>
+          <p style="color:#8FA3C6;font-size:13px;line-height:1.6">Live data saved safely in Cloud.<br>Daily 02:00 AM + Real-time sync.</p>
+          <p style="margin-top:9px"><span class="pill ok">Online</span> <span class="pill ok">Verified</span></p>
+          <button type="button" class="smallBtn" style="margin-top:10px">Open Cloud 1 →</button>
+        </div>
+        <div class="card clickable" onclick="guard('backup',()=>openModal('cloud2'))">
+          <div class="cardImg"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&amp;q=80" alt="Cloud 2"><span>CLOUD 2 • SECOND COPY</span></div>
+          <small>2 • Second Cloud Copy</small>
+          <h3 style="margin:8px 0 6px">Second Cloud Copy</h3>
+          <p style="color:#8FA3C6;font-size:13px;line-height:1.6">Immutable snapshot copy in second Cloud.<br>Powers instant Recycle Bin restore.</p>
+          <p style="margin-top:9px"><span class="pill blue">Immutable</span> <span class="pill ok">Online</span></p>
+          <button type="button" class="smallBtn" style="margin-top:10px">Open Cloud 2 →</button>
+        </div>
+        <div class="card clickable" onclick="guard('backup',()=>openModal('hardcopy'))">
+          <div class="cardImg"><img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=800&amp;q=80" alt="Hard Copy"><span>INTERNAL • HARD COPY</span></div>
+          <small>3 • Internal Hard Copy</small>
+          <h3 style="margin:8px 0 6px">Internal — Hard Copy</h3>
+          <p style="color:#8FA3C6;font-size:13px;line-height:1.6">Hard Copy on Internal Server.<br>Daily + Weekly offline-safe archive.</p>
+          <p style="margin-top:9px"><span class="pill ok">Hard Copy</span> <span class="pill ok">Verified Today</span></p>
+          <button type="button" class="smallBtn" style="margin-top:10px">Open Hard Copy →</button>
+        </div>
+      </div>
+
+      <div class="locGrid">
+        <div class="locCard" onclick="openStorageLocationModal('loc-sg')">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="pill ok">● LIVE • 12ms</span>
+            <span style="font-size:11px;color:#8FA3C6;font-weight:800">LOCATION #01</span>
+          </div>
+          <h3 style="margin-top:10px">☁️ Singapore Primary Cloud Vault</h3>
+          <p style="color:#8FA3C6;font-size:12.5px;line-height:1.6;margin-top:4px"><b>Saved Data:</b> client_main_db, client_orders_db, live WAL streams<br><b>Encryption:</b> AES-256-GCM • Active-Read/Write</p>
+          <div style="margin-top:10px;font-size:12px;color:#2EEA9A;font-weight:800">Click for Live Node &amp; Saved Data Details →</div>
+        </div>
+
+        <div class="locCard" onclick="openStorageLocationModal('loc-in')">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="pill blue">● LIVE • 19ms</span>
+            <span style="font-size:11px;color:#8FA3C6;font-weight:800">LOCATION #02</span>
+          </div>
+          <h3 style="margin-top:10px">☁️ Mumbai Second Cloud &amp; Recycle Node</h3>
+          <p style="color:#8FA3C6;font-size:12.5px;line-height:1.6;margin-top:4px"><b>Saved Data:</b> Immutable snapshots, Recycle Bin deleted rows, client_users_db<br><b>Protection:</b> WORM Lock + Instant Restore</p>
+          <div style="margin-top:10px;font-size:12px;color:#7FB0FF;font-weight:800">Click for Live Node &amp; Recycle Snapshot →</div>
+        </div>
+
+        <div class="locCard" onclick="openStorageLocationModal('loc-lk')">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="pill goldPill">● LIVE • 4ms LOCAL</span>
+            <span style="font-size:11px;color:#8FA3C6;font-weight:800">LOCATION #03</span>
+          </div>
+          <h3 style="margin-top:10px">💾 Internal Hard-Copy Server Rack</h3>
+          <p style="color:#8FA3C6;font-size:12.5px;line-height:1.6;margin-top:4px"><b>Saved Data:</b> Full nightly hard-copy dumps, client_logs_db, offline archive<br><b>Protection:</b> Air-gapped daily rotation</p>
+          <div style="margin-top:10px;font-size:12px;color:#FFD700;font-weight:800">Click for Hard-Copy Vault Details →</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sec-flow">
+      <h3 class="secTitle">4. Backup &amp; Recycle Protection Flow — Click Each Step</h3>
+      <p class="secSub">Client App → Cloud 1 → Cloud 2 (Recycle Snapshot) → Internal Hard Copy → DBA Verification</p>
+      <div class="card" style="margin-top:10px">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;text-align:center">
+          <div style="background:#0A1224;border:1px solid #1E2D4D;border-radius:14px;padding:12px;cursor:pointer" onclick="guard('backup',()=>openModal('clientapp'))">🖥️<br><b>Client App</b></div>
+          <div style="font-size:22px;align-self:center;color:#2EEA9A">→</div>
+          <div style="background:#0A1224;border:1px solid #1E2D4D;border-radius:14px;padding:12px;cursor:pointer" onclick="guard('backup',()=>openModal('cloud1'))">☁️<br><b>Cloud 1</b></div>
+          <div style="font-size:22px;align-self:center;color:#2EEA9A">→</div>
+          <div style="background:#0A1224;border:1px solid #1E2D4D;border-radius:14px;padding:12px;cursor:pointer" onclick="guard('backup',()=>openModal('cloud2'))">☁️<br><b>Cloud 2 + Recycle</b></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;margin-top:10px;text-align:center">
+          <div style="background:#0A1224;border:1px solid #1E2D4D;border-radius:14px;padding:12px;cursor:pointer" onclick="guard('backup',()=>openModal('hardcopy'))">💾<br><b>Internal Hard Copy</b></div>
+          <div style="font-size:22px;align-self:center;color:#FFD700">←</div>
+          <div style="background:#0A1224;border:1px solid #1E2D4D;border-radius:14px;padding:12px;cursor:pointer" onclick="guard('backup',()=>openModal('dba'))">🛡️<br><b>DBA Verification</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sec-db">
+      <h3 class="secTitle">5. Databases List — Role-Based View</h3>
+      <p class="secSub" id="dbSub"></p>
+
+      <div class="card" style="margin-top:10px" id="dbFull">
+        <h3>Your Databases — Full Technical List (CEO Only)</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0">
+          <input id="dbSearch" placeholder="Search database..." onkeyup="filterDB()">
+          <select id="dbFilter" onchange="filterDB()">
+            <option value="">All Status</option>
+            <option>Secured</option>
+            <option>Monitoring</option>
+            <option>Syncing</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table id="dbTable" style="min-width:720px">
+            <thead>
+              <tr><th>Database</th><th>Engine</th><th>Size</th><th>Cloud 1</th><th>Cloud 2</th><th>Hard Copy</th><th>Health</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr class="dbRow" onclick="openDB('client_main_db','MySQL 8.4','12.4 GB','98%','Secured')"><td><b>client_main_db</b></td><td>MySQL 8.4</td><td>12.4 GB</td><td>✅</td><td>✅</td><td>✅</td><td>98%</td><td><span class="pill ok">Secured</span></td></tr>
+              <tr class="dbRow" onclick="openDB('client_orders_db','PostgreSQL 16','8.2 GB','96%','Secured')"><td><b>client_orders_db</b></td><td>PostgreSQL 16</td><td>8.2 GB</td><td>✅</td><td>✅</td><td>✅</td><td>96%</td><td><span class="pill ok">Secured</span></td></tr>
+              <tr class="dbRow" onclick="openDB('client_users_db','SQL Server','5.6 GB','99%','Monitoring')"><td><b>client_users_db</b></td><td>SQL Server</td><td>5.6 GB</td><td>✅</td><td>✅</td><td>🟡</td><td>99%</td><td><span class="pill blue">Monitoring</span></td></tr>
+              <tr class="dbRow" onclick="openDB('client_logs_db','MongoDB','22.1 GB','94%','Syncing')"><td><b>client_logs_db</b></td><td>MongoDB</td><td>22.1 GB</td><td>✅</td><td>🟡</td><td>✅</td><td>94%</td><td><span class="pill warn">Syncing</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:10px" id="dbSummary">
+        <h3>Database Operational Summary (Project Manager Only) — Name &amp; Status Only</h3>
+        <p style="color:#8FA3C6;font-size:12px;margin-top:4px">Engine Size, Login Forensics, Deletion Logs &amp; Recycle Bin are restricted to CEO.</p>
+        <div style="overflow-x:auto">
+          <table style="min-width:420px;margin-top:10px">
+            <thead><tr><th>Database</th><th>Operational Status</th><th>Backup Copy Check</th></tr></thead>
+            <tbody>
+              <tr class="dbRow" onclick="openModal('manager')"><td><b>client_main_db</b></td><td><span class="pill ok">Secured</span></td><td>3 / 3 Verified</td></tr>
+              <tr class="dbRow" onclick="openModal('manager')"><td><b>client_orders_db</b></td><td><span class="pill ok">Secured</span></td><td>3 / 3 Verified</td></tr>
+              <tr class="dbRow" onclick="openModal('manager')"><td><b>client_users_db</b></td><td><span class="pill blue">Monitoring</span></td><td>Active Sync</td></tr>
+              <tr class="dbRow" onclick="openModal('manager')"><td><b>client_logs_db</b></td><td><span class="pill warn">Syncing</span></td><td>In Progress</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:10px" id="dbStaffHidden">
+        <h3>Databases — Restricted For Staff</h3>
+        <p style="color:#8FA3C6;font-size:14px;line-height:1.7;margin-top:6px">Staff accounts cannot inspect the Database List, Login History, or Recycle Bin Vault. You can view your daily operational health below.</p>
+        <button type="button" class="smallBtn" style="margin-top:10px" onclick="openModal('staff')">View Staff Access Rules →</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px" id="staffSection">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center">
+        <div>
+          <h3>👤 Staff — Your Permitted Workspace Only</h3>
+          <p style="color:#8FA3C6;font-size:14px;line-height:1.8;margin-top:8px">
+            ✅ System Online Check<br>
+            ✅ Daily Backup Completed (3 Copies)<br>
+            ✅ Basic Live Operational Status<br>
+            ❌ Database Schemas Hidden<br>
+            ❌ CEO Login History &amp; Recycle Bin Hidden
+          </p>
+          <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+            <button type="button" class="smallBtn" onclick="openModal('status')">System Online</button>
+            <button type="button" class="smallBtn" onclick="openModal('backup')">Backup Verified</button>
+            <button type="button" class="smallBtn" onclick="openModal('team')">DBA Support</button>
+          </div>
+        </div>
+        <div class="cardImg" style="height:190px;margin:0;cursor:pointer" onclick="openModal('team')">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&amp;q=80" alt="Team">
+        </div>
+      </div>
+    </div>
+
+    <div id="sec-chart">
+      <h3 class="secTitle">6. Live Telemetry Chart, Data Save Locations Map &amp; Activity Feed</h3>
+      <p class="secSub" id="chartSub"></p>
+      <div class="g3" style="margin-top:10px">
+        <div class="card">
+          <h3>Backup &amp; Sync Activity (Live)</h3>
+          <div style="display:flex;gap:8px;margin:10px 0">
+            <button type="button" class="smallBtn" onclick="changeChart('backup')">Backup</button>
+            <button type="button" class="smallBtn" onclick="changeChart('sync')">Sync</button>
+            <button type="button" class="smallBtn" id="btnChartSecurity" onclick="guard('security',()=>changeChart('security'))">Security</button>
+          </div>
+          <canvas id="chart" onclick="openModal('chart')"></canvas>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;text-align:center">
+            <div style="cursor:pointer" onclick="openModal('backup')"><b>12 / 12</b><br><span style="color:#8FA3C6;font-size:11px">Backups Done</span></div>
+            <div style="cursor:pointer" onclick="openModal('sync')"><b id="liveSyncedRecords">1,28,450</b><br><span style="color:#8FA3C6;font-size:11px">Records Synced</span></div>
+            <div style="cursor:pointer" onclick="openModal('hardcopy')"><b>Hard Copy ✓</b><br><span style="color:#8FA3C6;font-size:11px">Local Verified</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Where Your Data Is Saved (3 Live Locations)</h3>
+          <div class="map" onclick="openModal('map')">
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1000&amp;q=80" alt="Data Save Map">
+            <div class="dot" style="left:64%;top:64%" title="Singapore Cloud 1"></div>
+            <div class="mapTag" style="left:64%;top:64%">☁️ Cloud 1 • SG</div>
+
+            <div class="dot blueDot" style="left:53%;top:56%" title="Mumbai Cloud 2 &amp; Recycle"></div>
+            <div class="mapTag" style="left:53%;top:56%">♻️ Cloud 2 • IN</div>
+
+            <div class="dot goldDot" style="left:58%;top:72%" title="Internal Hard-Copy Vault"></div>
+            <div class="mapTag" style="left:58%;top:72%">💾 Hard Copy • Local</div>
+          </div>
+          <p style="margin-top:10px;font-size:12.5px;line-height:1.75;color:#8FA3C6">
+            🟢 <b>Cloud 1 (SG)</b> • 🔵 <b>Cloud 2 + Recycle (IN)</b> • 🟡 <b>Hard Copy (Local)</b><br>
+            All 3 Data Save Locations Online &amp; Syncing Live
+          </p>
+          <button type="button" class="smallBtn" style="margin-top:6px" onclick="openModal('map')">Inspect All 3 Save Locations →</button>
+        </div>
+
+        <div class="card">
+          <h3>Live Activity Feed</h3>
+          <div id="feed" style="max-height:245px;overflow-y:auto"></div>
+          <button type="button" class="smallBtn" onclick="addFeed()" style="margin-top:10px">+ Refresh Live Feed</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="sec-security">
+      <h3 class="secTitle">7. Security, Performance &amp; DBA Governance</h3>
+      <p class="secSub" id="securitySub"></p>
+      <div class="g3" style="margin-top:10px">
+        <div class="card clickable" onclick="guard('security',()=>openModal('security'))">
+          <div class="cardImg"><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&amp;q=80" alt="Security"><span>SECURITY</span></div>
+          <h3>Security &amp; Threat Shield</h3>
+          <p style="color:#8FA3C6;font-size:13px;line-height:1.6">AES-256 Encryption, Strict Role Isolation, <span id="liveThreatsBlocked">127</span> external threats blocked this month.</p>
+          <div class="bar"><i style="width:98%"></i></div>
+          <button type="button" class="smallBtn" style="margin-top:10px">Open Security Report →</button>
+        </div>
+        <div class="card clickable" onclick="guard('security',()=>openModal('performance'))">
+          <div class="cardImg"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&amp;q=80" alt="Performance"><span>PERFORMANCE</span></div>
+          <h3>Query &amp; Replica Speed</h3>
+          <p style="color:#8FA3C6;font-size:13px;line-height:1.6">Avg Query <span id="liveQueryMs">42ms</span> — 18% faster after DBA index tuning. CPU <span id="liveCpuPct">34%</span> • RAM 58%.</p>
+          <div class="bar"><i style="width:88%"></i></div>
+          <button type="button" class="smallBtn" style="margin-top:10px">Open Performance →</button>
+        </div>
+        <div class="card clickable" onclick="openModal('team')">
+          <div class="cardImg"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&amp;q=80" alt="Trust"><span>DBA MANAGED</span></div>
+          <h3>24/7 DBA Engineering</h3>
+          <p style="color:#8FA3C6;font-size:13px;line-height:1.6">Continuous monitoring, daily backup verification, and CEO-authorized Recycle Bin restore.</p>
+          <div class="bar"><i style="width:100%"></i></div>
+          <button type="button" class="smallBtn" style="margin-top:10px">Open DBA Support →</button>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:#8FA3C6;font-size:12px;margin:20px 0" id="footerNote">Client Vault • Secured • Role-Isolated</p>
+  </div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this) closeModal()">
+  <div class="modalBox">
+    <img id="mImg" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&amp;q=80" alt="Detail">
+    <div class="modalInner">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <h2 id="mTitle" style="flex:1">Details</h2>
+        <button type="button" class="xCloseBtn" onclick="closeModal()" title="Close">✕</button>
+      </div>
+      <p id="mText"></p>
+      <div id="mExtraBox" class="detailMetaBox hidden"></div>
+      <div id="mActions" style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <button type="button" class="btn g" onclick="closeModal()">Close ✓</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PERMISSIONS = {
+  CEO: {
+    title: 'CEO',
+    badge: '👑 CEO',
+    label: 'CEO — Full Executive + Storage Locations + Login Forensics & Recycle Bin Restore',
+    status: 'full',
+    backup: 'full',
+    databases: 'full',
+    databases_summary: 'hidden',
+    forensic: 'full',
+    security: 'full',
+    chart: 'full',
+    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
+    welcome: 'Welcome to the Executive Command Vault. You have full live visibility across System Status, 3-Copy Backups & Data Save Locations, Full Databases, Who Logged In, Who Deleted Data, and 1-Click Recycle Bin Data Restoration.',
+    accessLine: 'CEO View: System Status • 3-Copy Backups & Save Locations • Full Databases • Login History • Deletion Forensics & Recycle Bin Restore',
+    hidden: '👑 CEO Executive Mode: Full access enabled across all modules, storage locations, login audit trails, and Recycle Bin restoration.'
+  },
+  PROJECT_MANAGER: {
+    title: 'Project Manager',
+    badge: '💼 Project Manager',
+    label: 'Project Manager — Operational View Only',
+    status: 'full',
+    backup: 'full',
+    databases: 'hidden',
+    databases_summary: 'full',
+    forensic: 'hidden',
+    security: 'basic',
+    chart: 'full',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
+    welcome: 'You are signed in with Project Manager operational access. You can monitor System Status, 3-Copy Backups & Data Save Locations, Database Operational Summary, and Live Telemetry.',
+    accessLine: 'Project Manager View: Status Full • Backup & Save Locations Full • Database Summary (Name + Status) • Chart & Map Full • Security Basic',
+    hidden: '💼 Project Manager Restrictions: ❌ System Login History (CEO Only) • ❌ Data Deletion Forensics & Recycle Bin Restore (CEO Only) • ❌ Full DB Technical Metrics (CEO Only)'
+  },
+  STAFF: {
+    title: 'Staff',
+    badge: '👤 Staff',
+    label: 'Staff — Own Section Only',
+    status: 'basic',
+    backup: 'basic',
+    databases: 'hidden',
+    databases_summary: 'hidden',
+    forensic: 'hidden',
+    security: 'hidden',
+    chart: 'basic',
+    img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
+    welcome: 'You are signed in with Staff workspace access. You can check whether the system is online, view daily 3-copy backup & save location status, and inspect basic live activity.',
+    accessLine: 'Staff View: System Online Check • Daily Backup Done Status • Save Locations Status • Staff Workspace Card • Basic Telemetry',
+    hidden: '👤 Staff Restrictions: ❌ Databases List • ❌ System Login History • ❌ Data Deletion Forensics & Recycle Bin Restore • ❌ Detailed Security & Query Metrics'
+  }
+};
+
+const STORAGE_LOCATIONS = {
+  'loc-sg': {
+    title: '☁️ Location #01 — Singapore Primary Cloud Vault (LIVE)',
+    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80',
+    summary: 'Primary encrypted cloud database & real-time backup cluster running with continuous transaction log shipping.',
+    meta: 'Region: AP-Southeast-1 (Singapore)\nRole: Primary Cloud 1 + Active Read/Write\nSaved Databases: client_main_db (12.4 GB), client_orders_db (8.2 GB)\nEncryption: AES-256-GCM + TLS 1.3\nLatency: 12ms • Replication Lag: 0.2s'
+  },
+  'loc-in': {
+    title: '☁️ Location #02 — Mumbai Second Cloud & Recycle Node (LIVE)',
+    img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80',
+    summary: 'Secondary independent cloud region storing immutable snapshots and pre-delete Recycle Bin rows for instant CEO recovery.',
+    meta: 'Region: AP-South-1 (Mumbai)\nRole: Second Cloud Copy + Recycle Bin Vault\nSaved Data: Immutable Snapshots, Deleted Row Backups, client_users_db (5.6 GB)\nRetention Lock: 30-Day Immutable + Recycle Bin\nLatency: 19ms • Status: Online & Verified'
+  },
+  'loc-lk': {
+    title: '💾 Location #03 — Internal Hard-Copy Server Rack (LIVE)',
+    img: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=900&q=80',
+    summary: 'On-premise / internal hard-copy server vault keeping verified physical/local copies of critical databases and logs.',
+    meta: 'Vault Type: Internal Hard-Copy Server Rack\nRole: 3rd Copy — Local Hard-Copy Archive\nSaved Data: Nightly Full Hard-Copy Dumps, client_logs_db (22.1 GB)\nVerification: SHA-256 Checksum Passed Today 02:00 AM\nLocal Ping: 4ms • Status: Online & Protected'
+  }
+};
+
+let loginHistoryLogs = [
+  { time: 'Today, 09:05 AM', name: 'Mohammadu Ansar Sumaiya', role: 'CEO', mail: 'sumaiyaansar239@gmail.com', device: 'Chrome / Windows • 103.42.**.18', status: 'Verified Login' },
+  { time: 'Today, 10:18 AM', name: 'Rahul Verma', role: 'PROJECT_MANAGER', mail: 'rahul@company.com', device: 'Edge / Windows • 103.42.**.91', status: 'Verified Login' },
+  { time: 'Today, 11:42 AM', name: 'Anitha Kumar', role: 'STAFF', mail: 'anitha@company.com', device: 'Chrome / Windows • 103.42.**.44', status: 'Verified Login' }
+];
+
+let deletionRecycleRecords = [
+  {
+    id: 'DEL-8901',
+    snapshotId: 'SNAP-SG-20261125-02',
+    deletedAt: 'Today, 02:15 PM',
+    actorName: 'Rahul Verma',
+    actorRole: 'PROJECT_MANAGER',
+    actorMail: 'rahul@company.com',
+    dbName: 'client_orders_db',
+    tableName: 'partner_invoices',
+    recordSummary: 'Invoice #INV-2026-4419 ($18,400.00)',
+    deletedPayload: '{ "invoice_id": "INV-2026-4419", "partner": "Apex Trade Ltd", "amount_usd": 18400.00, "rows_affected": 1 }',
+    status: 'In Recycle Bin'
+  },
+  {
+    id: 'DEL-8902',
+    snapshotId: 'SNAP-IN-20261125-03',
+    deletedAt: 'Today, 03:40 PM',
+    actorName: 'Anitha Kumar',
+    actorRole: 'STAFF',
+    actorMail: 'anitha@company.com',
+    dbName: 'client_main_db',
+    tableName: 'customer_shipments',
+    recordSummary: 'Batch #SHP-9921 (42 Order Rows)',
+    deletedPayload: '{ "batch_id": "SHP-9921", "warehouse": "Colombo Hub", "rows_deleted": 42, "status": "dispatched" }',
+    status: 'In Recycle Bin'
+  },
+  {
+    id: 'DEL-8897',
+    snapshotId: 'SNAP-LK-20261124-18',
+    deletedAt: 'Yesterday, 06:20 PM',
+    actorName: 'Rahul Verma',
+    actorRole: 'PROJECT_MANAGER',
+    actorMail: 'rahul@company.com',
+    dbName: 'client_users_db',
+    tableName: 'partner_contacts',
+    recordSummary: '14 Archived Vendor Contacts',
+    deletedPayload: '{ "group": "archived_vendors", "contacts_count": 14, "source_table": "partner_contacts" }',
+    status: 'Restored',
+    restoredBy: 'Mohammadu Ansar Sumaiya (CEO) • Yesterday 06:45 PM'
+  }
+];
+
+let liveFeedItems = [
+  { icon: '✅', text: '3-Copy live sync verified — SG Cloud, IN Recycle & Local Hard Copy', meta: 'Live Stream • DBA System', modal: 'backup' },
+  { icon: '♻️', text: 'Recycle Bin snapshot active — Deleted rows protected for CEO recovery', meta: 'Live Stream • Vault Guard', modal: 'cloud2' },
+  { icon: '💾', text: 'Internal Hard Copy checksum verified on local vault server', meta: 'Live Stream • DBA System', modal: 'hardcopy' },
+  { icon: '🛡️', text: 'Role isolation active across CEO, Project Manager & Staff', meta: 'Live Stream • Security Shield', modal: 'security' }
+];
+
+let currentRole = 'CEO';
+let chartType = 'backup';
+let syncedCounter = 128450;
+let userData = {
+  name: 'Mohammadu Ansar Sumaiya',
+  empId: 'CEO-001',
+  mail: 'sumaiyaansar239@gmail.com',
+  img: PERMISSIONS.CEO.img
+};
+
+const DATA = {
+  status: {
+    t: 'System Status — All Online',
+    img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80',
+    x: 'All database clusters, read replicas, storage nodes, and Recycle Bin capture triggers are Online with real-time heartbeat monitoring.'
+  },
+  uptime: {
+    t: 'Uptime — 99.99% Live SLA',
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80',
+    x: '30-Day Uptime: 99.99%. SLA target exceeded across primary cloud, second cloud, and internal hard-copy nodes.'
+  },
+  backup: {
+    t: '3-Copy Backup & Save Locations',
+    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80',
+    x: '1. Cloud 1 (Singapore): Primary Live Backup & WAL Sync\n2. Cloud 2 (Mumbai): Immutable Copy + Recycle Bin Snapshots\n3. Internal Hard Copy (Local Rack): Verified Hard-Copy Archive\n\nAny deleted row is captured in the Recycle Bin for CEO restoration.'
+  },
+  cloud1: {
+    t: 'Cloud 1 — Primary Cloud Backup (Singapore)',
+    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80',
+    x: 'Primary encrypted cloud backup in Singapore with continuous log replication and daily 02:00 AM full snapshots.'
+  },
+  cloud2: {
+    t: 'Cloud 2 — Immutable Copy & Recycle Vault (Mumbai)',
+    img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80',
+    x: 'Second isolated cloud copy in Mumbai with immutable retention. Preserves deleted records so the CEO can inspect and restore them.'
+  },
+  hardcopy: {
+    t: 'Internal — Hard Copy Backup (Local Server)',
+    img: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=900&q=80',
+    x: 'Physical/internal server hard-copy backup. Protects against external network disruptions and provides offline-safe recovery.'
+  },
+  clientapp: {
+    t: 'Client Application Layer',
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80',
+    x: 'All client operations pass through authenticated role policies with real-time audit logging.'
+  },
+  dba: {
+    t: 'DBA Verification & Governance',
+    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80',
+    x: 'Database Engineers verify backups daily, monitor storage locations live, and enforce strict CEO / Project Manager / Staff isolation.'
+  },
+  security: {
+    t: 'Security Report — 98 / 100',
+    img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=900&q=80',
+    x: 'AES-256 Encryption: ON\nRole-Based Access Control: Enforced\nThreats Blocked (30d): 127\nRecycle Bin Anti-Deletion Guard: Active'
+  },
+  performance: {
+    t: 'Performance Report — Live Telemetry',
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80',
+    x: 'Average Query Latency: ~42ms (Live)\nCPU Utilization: ~34% • Memory: 58% • Storage I/O: Healthy'
+  },
+  team: {
+    t: '24/7 DBA Engineering Support',
+    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80',
+    x: 'Managed 24/7 by your Database Administration team. Contact DBA Ops for schema changes or audit exports.'
+  },
+  office: {
+    t: 'Office Vault — Local Hard-Copy Room',
+    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80',
+    x: 'Secured local server environment storing the verified Internal Hard Copy backup.'
+  },
+  datacenter: {
+    t: 'Primary Data Center — Online',
+    img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80',
+    x: 'Redundant power, cooling, and encrypted fiber links active across all 3 data save locations.'
+  },
+  chart: {
+    t: 'Live Telemetry Chart',
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80',
+    x: 'Switch between Backup, Sync, and Security live charts using the buttons above the canvas.'
+  },
+  map: {
+    t: '3 Live Data Save Locations',
+    img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80',
+    x: '1. Singapore Cloud 1 — Primary DB & Live WAL Sync\n2. Mumbai Cloud 2 — Immutable Copy & Recycle Bin Vault\n3. Internal Server Rack — Verified Hard-Copy Archive'
+  },
+  sync: {
+    t: 'Live Record Sync',
+    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80',
+    x: 'Records are continuously replicated across Cloud 1, Cloud 2, and Internal Hard Copy in real time.'
+  },
+  manager: {
+    t: '💼 Project Manager — Operational Access',
+    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80',
+    x: 'Project Manager sees System Status, 3-Copy Backups & Data Save Locations, and Database Summary (Name + Status). Login History and Recycle Bin are restricted to CEO.'
+  },
+  staff: {
+    t: '👤 Staff — Basic Operational Access',
+    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80',
+    x: 'Staff sees only System Online health, Backup Done status, and Save Locations status. Databases list, Login History, and Recycle Bin are hidden.'
+  },
+  denied: {
+    t: 'Access Denied — CEO Only',
+    img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=900&q=80',
+    x: 'This action/module is strictly restricted to the CEO role. Project Managers and Staff cannot view Login History or inspect/restore Recycle Bin deletions.'
+  },
+  profile: {
+    t: 'Authenticated Session Profile',
+    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&q=80',
+    x: ''
+  }
+};
+
+function hasAccess(key) {
+  const p = PERMISSIONS[currentRole];
+  if (key === 'databases_summary') return p.databases_summary === 'full';
+  return Boolean(p[key] && p[key] !== 'hidden');
+}
+
+function guard(key, fn) {
+  if (hasAccess(key)) {
+    fn();
+  } else {
+    toast('Access Denied — Restricted to CEO');
+    openModal('denied');
+  }
+}
+
+function setRole(btn, role) {
+  currentRole = role;
+  document.querySelectorAll('#roleBtns button').forEach(b => b.classList.remove('on', 'onGold'));
+  if (btn) btn.classList.add(role === 'CEO' ? 'onGold' : 'on');
+  const empEl = document.getElementById('empId');
+  if (empEl) empEl.value = role === 'CEO' ? 'CEO-001' : role === 'PROJECT_MANAGER' ? 'PM-001' : 'STAFF-001';
+
+  const box = document.getElementById('roleAccessBox');
+  if (role === 'CEO') {
+    box.style.borderColor = 'rgba(255,215,0,.45)';
+    box.innerHTML = '👑 <b style="color:#FFD700">CEO Full Executive Access:</b> System Status • 3-Copy Backup &amp; Save Locations • Full Databases • <b>Who Logged In</b> • <b>Who Deleted Data &amp; Recycle Bin Restore</b>';
+  } else if (role === 'PROJECT_MANAGER') {
+    box.style.borderColor = 'rgba(127,176,255,.45)';
+    box.innerHTML = '💼 <b style="color:#7FB0FF">Project Manager Access:</b> System Status • 3-Copy Backup &amp; Save Locations • Database Summary (Name &amp; Status) • Chart &amp; Map (Login History &amp; Recycle Bin Hidden)';
+  } else {
+    box.style.borderColor = 'rgba(46,234,154,.45)';
+    box.innerHTML = '👤 <b style="color:#2EEA9A">Staff Access:</b> Own Section Only • System Online Check • Daily Backup &amp; Save Locations Status (Databases, Login History &amp; Recycle Bin Hidden)';
+  }
+}
+
+function toggleLoginPwd() {
+  const inp = document.getElementById('pwd');
+  const btn = document.getElementById('pwdToggleBtn');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    btn.innerText = 'HIDE';
+  } else {
+    inp.type = 'password';
+    btn.innerText = 'SHOW';
+  }
+}
+
+function formatNowTime() {
+  return 'Today, ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
+function goDash(e) {
+  if (e) e.preventDefault();
+  const name = document.getElementById('fullName').value.trim() || 'Mohammadu Ansar Sumaiya';
+  const empId = document.getElementById('empId').value.trim() || 'EXEC-001';
+  const mail = document.getElementById('mailId').value.trim() || 'sumaiyaansar239@gmail.com';
+
+  userData = { name, empId, mail, img: PERMISSIONS[currentRole].img };
+
+  loginHistoryLogs.unshift({
+    time: formatNowTime(),
+    name: userData.name,
+    role: currentRole,
+    mail: userData.mail,
+    device: 'Verified Browser • 103.42.**.18',
+    status: 'Verified Login'
+  });
+
+  liveFeedItems.unshift({
+    icon: currentRole === 'CEO' ? '👑' : currentRole === 'PROJECT_MANAGER' ? '💼' : '👤',
+    text: `${userData.name} (${PERMISSIONS[currentRole].title}) signed in`,
+    meta: `${formatNowTime()} • Audited Session`,
+    modal: 'profile'
+  });
+
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('dash').style.display = 'block';
+  applyRole();
+  window.scrollTo(0, 0);
+  requestAnimationFrame(draw);
+  toast('Logged in as ' + userData.name + ' (' + PERMISSIONS[currentRole].title + ')');
+}
+
+function logoutVault() {
+  document.getElementById('dash').style.display = 'none';
+  document.getElementById('login').style.display = 'grid';
+  toast('Session closed & logged out safely');
+}
+
+function applyRole() {
+  const p = PERMISSIONS[currentRole];
+  document.getElementById('profileImg').src = userData.img;
+  document.getElementById('profileName').innerText = userData.name;
+  document.getElementById('profileMeta').innerText = `${p.title} • ${userData.empId} • ${userData.mail}`;
+  document.getElementById('profileAccess').innerText = 'Access: ' + p.label;
+
+  document.getElementById('welcomeTitle').innerText = `Welcome, ${userData.name} — ${p.title}`;
+  document.getElementById('welcomeText').innerText = p.welcome;
+  document.getElementById('accessLine').innerText = p.accessLine;
+  document.getElementById('hiddenNotice').innerHTML = `<b style="color:${currentRole === 'CEO' ? '#2EEA9A' : '#FF8A8A'}">${p.hidden}</b>`;
+
+  document.getElementById('roleLabel').innerText = `${p.badge} • ${userData.name}`;
+  document.getElementById('heroRole').innerText = `${p.title.toUpperCase()} VIEW • ${userData.name}`;
+  document.getElementById('roleNotice').innerText = `${p.label} • ${userData.mail}`;
+  document.getElementById('footerNote').innerText = `Client Vault • Secured • ${p.label} • Authenticated as ${userData.name}`;
+
+  const isCeo = currentRole === 'CEO';
+  const isPm = currentRole === 'PROJECT_MANAGER';
+  const isStaff = currentRole === 'STAFF';
+
+  document.getElementById('sec-forensic').classList.toggle('hidden', !isCeo);
+  document.getElementById('btnCeoVaultJump').classList.toggle('hidden', !isCeo);
+  document.getElementById('tabForensic').disabled = !isCeo;
+  document.getElementById('tabForensic').classList.toggle('hidden', !isCeo);
+
+  document.getElementById('dbFull').classList.toggle('hidden', !isCeo);
+  document.getElementById('dbSummary').classList.toggle('hidden', !isPm);
+  document.getElementById('dbStaffHidden').classList.toggle('hidden', !isStaff);
+  document.getElementById('staffSection').classList.toggle('hidden', !isStaff);
+
+  document.getElementById('cardSecurityScore').classList.toggle('hidden', isStaff);
+  document.getElementById('btnChartSecurity').classList.toggle('hidden', isStaff);
+  document.getElementById('tabDb').disabled = isStaff;
+  document.getElementById('tabSecurity').disabled = isStaff;
+
+  document.getElementById('statusSub').innerText = `Position Access: ${p.status === 'full' ? 'Full' : 'Basic'} • ${userData.name}`;
+  document.getElementById('dbSub').innerText = `Position Access: ${isCeo ? 'Full Technical List' : isPm ? 'Operational Summary Only' : 'Hidden for Staff'}`;
+  document.getElementById('securitySub').innerText = `Position Access: ${isCeo ? 'Full Executive' : isPm ? 'Basic Operational' : 'Hidden'}`;
+  document.getElementById('chartSub').innerText = `Position Access: ${p.chart === 'full' ? 'Full Telemetry' : 'Basic Telemetry'}`;
+
+  DATA.profile.x = `Full Name: ${userData.name}\nMail ID: ${userData.mail}\nID: ${userData.empId}\nPosition: ${p.title}\nAccess Level: ${p.label}`;
+
+  const allTabBtn = document.querySelector('#tabs button[data-tab="all"]');
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('on'));
+  if (allTabBtn) allTabBtn.classList.add('on');
+  showSection('all', allTabBtn, true);
+
+  renderLiveFeed();
+  if (isCeo) renderCeoForensicSuite();
+}
+
+function openRoleSummaryModal() {
+  const p = PERMISSIONS[currentRole];
+  document.getElementById('mTitle').innerText = `${p.badge} — Your Live Access Summary`;
+  document.getElementById('mText').innerText = `${p.welcome}\n\n${p.hidden}`;
+  document.getElementById('mImg').src = 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80';
+  const extra = document.getElementById('mExtraBox');
+  extra.classList.remove('hidden');
+  extra.innerText = `Role: ${p.title}\nUser: ${userData.name} (${userData.mail})\nPermitted Scope: ${p.accessLine}`;
+  document.getElementById('mActions').innerHTML = `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function openStorageLocationModal(locKey) {
+  const loc = STORAGE_LOCATIONS[locKey];
+  if (!loc) return;
+  document.getElementById('mTitle').innerText = loc.title;
+  document.getElementById('mText').innerText = loc.summary;
+  document.getElementById('mImg').src = loc.img;
+  const extra = document.getElementById('mExtraBox');
+  extra.classList.remove('hidden');
+  extra.innerText = loc.meta;
+  document.getElementById('mActions').innerHTML = `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function renderCeoForensicSuite() {
+  if (currentRole !== 'CEO') return;
+  document.getElementById('ceoKpiLogins').innerText = loginHistoryLogs.length;
+  document.getElementById('ceoKpiDeleted').innerText = deletionRecycleRecords.length;
+  document.getElementById('ceoKpiPendingRestore').innerText = deletionRecycleRecords.filter(r => r.status === 'In Recycle Bin').length;
+  document.getElementById('ceoKpiRestored').innerText = deletionRecycleRecords.filter(r => r.status === 'Restored').length;
+  renderLoginHistoryTable();
+  renderDeletionRecycleTable();
+}
+
+function renderLoginHistoryTable() {
+  const tbody = document.getElementById('loginHistoryBody');
+  const filter = document.getElementById('loginRoleFilter').value;
+  const rows = loginHistoryLogs
+    .map((item, originalIdx) => ({ item, originalIdx }))
+    .filter(({ item }) => filter === 'ALL' || item.role === filter);
+
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#8FA3C6">No login records for selected filter.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(({ item, originalIdx }) => {
+    const roleBadge =
+      item.role === 'CEO'
+        ? '<span class="pill goldPill">👑 CEO</span>'
+        : item.role === 'PROJECT_MANAGER'
+        ? '<span class="pill blue">💼 Project Manager</span>'
+        : '<span class="pill ok">👤 Staff</span>';
+    const statusBadge = item.status.startsWith('Verified')
+      ? `<span class="pill ok">${item.status}</span>`
+      : `<span class="pill bad">${item.status}</span>`;
+    return `
+      <tr class="dbRow" onclick="openLoginDetailByIndex(${originalIdx})">
+        <td>${item.time}</td>
+        <td><b>${item.name}</b></td>
+        <td>${roleBadge}</td>
+        <td style="color:#B8C6E2">${item.mail}</td>
+        <td style="color:#8FA3C6;font-size:12px">${item.device}</td>
+        <td>${statusBadge}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openLoginDetailByIndex(idx) {
+  const item = loginHistoryLogs[idx];
+  if (!item) return;
+  document.getElementById('mTitle').innerText = `Login Audit — ${item.name}`;
+  document.getElementById('mText').innerText = 'Full authentication telemetry captured in CEO System Login History.';
+  document.getElementById('mImg').src = 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=900&q=80';
+  const extra = document.getElementById('mExtraBox');
+  extra.classList.remove('hidden');
+  extra.innerText = `User Name: ${item.name}\nPosition: ${item.role}\nMail ID: ${item.mail}\nLogin Time: ${item.time}\nDevice / Network: ${item.device}\nAuthentication Status: ${item.status}`;
+  document.getElementById('mActions').innerHTML = `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function renderDeletionRecycleTable() {
+  const tbody = document.getElementById('deletionRecycleBody');
+  const filter = document.getElementById('recycleFilter').value;
+  const rows = deletionRecycleRecords.filter(r => filter === 'ALL' || r.status === filter);
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#8FA3C6">No deletion / Recycle Bin records found.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(rec => {
+    const actorBadge =
+      rec.actorRole === 'PROJECT_MANAGER'
+        ? '<span class="pill blue">💼 Project Manager</span>'
+        : rec.actorRole === 'STAFF'
+        ? '<span class="pill ok">👤 Staff</span>'
+        : '<span class="pill goldPill">👑 CEO</span>';
+    const statusBadge =
+      rec.status === 'Restored'
+        ? `<span class="pill ok">✅ Restored to Live DB</span><div style="font-size:11px;color:#8FA3C6;margin-top:3px">${rec.restoredBy || ''}</div>`
+        : `<span class="pill warn">♻️ In Recycle Bin</span><div style="font-size:11px;color:#F7C948;margin-top:3px">Snapshot Ready</div>`;
+
+    const inspectBtn = `<button type="button" class="xCloseBtn" title="Click ✕ to view deletion details" onclick="inspectDeletionById('${rec.id}')">✕</button>`;
+    const restoreBtn =
+      rec.status === 'Restored'
+        ? `<span style="color:#2EEA9A;font-weight:800;font-size:12px">Recovered ✓</span>`
+        : `<button type="button" class="btn gold" style="padding:8px 12px;font-size:12px" onclick="restoreFromRecycleBin('${rec.id}')">♻️ Restore Data</button>`;
+
+    return `
+      <tr>
+        <td>${rec.deletedAt}</td>
+        <td><b>${rec.actorName}</b><div style="margin-top:3px">${actorBadge}</div></td>
+        <td style="color:#B8C6E2">${rec.actorMail}</td>
+        <td>
+          <b style="color:#fff">${rec.dbName}.${rec.tableName}</b>
+          <div style="color:#8FA3C6;font-size:12px;margin-top:2px">${rec.recordSummary}</div>
+        </td>
+        <td>${statusBadge}</td>
+        <td style="text-align:right">
+          <div style="display:inline-flex;gap:8px;align-items:center;justify-content:flex-end">
+            ${inspectBtn}
+            ${restoreBtn}
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function inspectDeletionById(recordId) {
+  if (currentRole !== 'CEO') {
+    toast('Access Denied — Only CEO can inspect deletion details');
+    openModal('denied');
+    return;
+  }
+  const rec = deletionRecycleRecords.find(r => r.id === recordId);
+  if (!rec) return;
+
+  document.getElementById('mTitle').innerText = `✕ Deletion Details — ${rec.id} (${rec.dbName}.${rec.tableName})`;
+  document.getElementById('mText').innerText = `Deleted Record: ${rec.recordSummary}\nCurrent Recycle Bin Status: ${rec.status}`;
+  document.getElementById('mImg').src = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80';
+
+  const extra = document.getElementById('mExtraBox');
+  extra.classList.remove('hidden');
+  extra.innerText =
+    `Deletion ID: ${rec.id}\n` +
+    `Recycle Snapshot ID: ${rec.snapshotId}\n` +
+    `Deleted By: ${rec.actorName} (${rec.actorRole})\n` +
+    `Actor Mail ID: ${rec.actorMail}\n` +
+    `Deleted Timestamp: ${rec.deletedAt}\n` +
+    `Database & Table: ${rec.dbName} → ${rec.tableName}\n` +
+    `Captured Snapshot Payload: ${rec.deletedPayload}` +
+    (rec.restoredBy ? `\nRestored By: ${rec.restoredBy}` : '');
+
+  const actions = document.getElementById('mActions');
+  if (rec.status !== 'Restored') {
+    actions.innerHTML =
+      `<button type="button" class="btn gold" onclick="restoreFromRecycleBin('${rec.id}');closeModal()">♻️ Restore This Data Now</button>` +
+      `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  } else {
+    actions.innerHTML = `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  }
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function restoreFromRecycleBin(recordId) {
+  if (currentRole !== 'CEO') {
+    toast('Access Denied — Only CEO can restore from Recycle Bin');
+    openModal('denied');
+    return;
+  }
+  const item = deletionRecycleRecords.find(r => r.id === recordId);
+  if (!item || item.status === 'Restored') return;
+  item.status = 'Restored';
+  item.restoredBy = `${userData.name} (CEO) • ${formatNowTime()}`;
+  liveFeedItems.unshift({
+    icon: '👑',
+    text: `CEO ${userData.name} restored "${item.recordSummary}" to ${item.dbName}.${item.tableName}`,
+    meta: `${formatNowTime()} • Recycle Bin Recovery`,
+    modal: 'cloud2'
+  });
+  renderLiveFeed();
+  renderCeoForensicSuite();
+  toast(`Restored ${item.recordSummary} from Recycle Bin to Live DB!`);
+}
+
+function simulateDeletionAlert() {
+  if (currentRole !== 'CEO') return;
+  const sampleEvents = [
+    {
+      actorName: 'Anitha Kumar',
+      actorRole: 'STAFF',
+      actorMail: 'anitha@company.com',
+      dbName: 'client_orders_db',
+      tableName: 'order_line_items',
+      recordSummary: 'Order #ORD-77812 (18 Line Items)',
+      deletedPayload: '{ "order_id": "ORD-77812", "line_items": 18, "region": "Colombo" }'
+    },
+    {
+      actorName: 'Rahul Verma',
+      actorRole: 'PROJECT_MANAGER',
+      actorMail: 'rahul@company.com',
+      dbName: 'client_main_db',
+      tableName: 'partner_contracts',
+      recordSummary: 'Contract #CTR-2026-09 ($45,000.00)',
+      deletedPayload: '{ "contract_id": "CTR-2026-09", "value_usd": 45000, "term_months": 12 }'
+    }
+  ];
+  const pick = sampleEvents[deletionRecycleRecords.length % sampleEvents.length];
+  const newId = 'DEL-' + Math.floor(1000 + Math.random() * 9000);
+
+  deletionRecycleRecords.unshift({
+    id: newId,
+    snapshotId: 'SNAP-IN-' + Date.now().toString().slice(-6),
+    deletedAt: formatNowTime(),
+    ...pick,
+    status: 'In Recycle Bin'
+  });
+
+  liveFeedItems.unshift({
+    icon: '♻️',
+    text: `Deletion caught by Recycle Bin: ${pick.actorName} deleted ${pick.recordSummary}`,
+    meta: `${formatNowTime()} • Awaiting CEO Restore`,
+    modal: 'cloud2'
+  });
+
+  renderLiveFeed();
+  renderCeoForensicSuite();
+  toast('New deletion event captured in CEO Recycle Bin! Click ✕ to inspect.');
+}
+
+function jumpToCeoVault() {
+  showSection('forensic', document.getElementById('tabForensic'));
+}
+
+function renderLiveFeed() {
+  document.getElementById('feed').innerHTML = liveFeedItems
+    .map(item => `<div class="feedItem" onclick="openModal('${item.modal}')">${item.icon}<div>${item.text}<span>${item.meta}</span></div></div>`)
+    .join('');
+}
+
+function addFeed() {
+  triggerLivePulse();
+}
+
+function triggerLivePulse() {
+  syncedCounter += Math.floor(120 + Math.random() * 340);
+  const formatted = syncedCounter.toLocaleString('en-IN');
+  const elSynced = document.getElementById('liveSyncedRecords');
+  if (elSynced) elSynced.innerText = formatted;
+
+  const ms = Math.floor(38 + Math.random() * 9);
+  const cpu = Math.floor(31 + Math.random() * 8);
+  const qEl = document.getElementById('liveQueryMs');
+  const cEl = document.getElementById('liveCpuPct');
+  if (qEl) qEl.innerText = ms + 'ms';
+  if (cEl) cEl.innerText = cpu + '%';
+
+  liveFeedItems.unshift({
+    icon: '⚡',
+    text: `Live sync pulse — ${formatted} records verified across SG, IN & Hard Copy`,
+    meta: `${formatNowTime()} • Live Heartbeat`,
+    modal: 'sync'
+  });
+  renderLiveFeed();
+  draw();
+  toast(`Live Telemetry Refreshed • ${formatted} Records Verified`);
+}
+
+function openModal(k) {
+  const d = DATA[k];
+  if (!d) return;
+  document.getElementById('mTitle').innerText = d.t;
+  document.getElementById('mText').innerText = d.x;
+  document.getElementById('mImg').src = d.img;
+  document.getElementById('mExtraBox').classList.add('hidden');
+  document.getElementById('mActions').innerHTML = `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function openDB(name, type, size, health, status) {
+  document.getElementById('mTitle').innerText = `${name} — ${status}`;
+  document.getElementById('mText').innerText = `Database: ${name}\nEngine: ${type}\nSize: ${size}\nHealth: ${health}\nStatus: ${status}\nCloud 1 (Singapore): Verified\nCloud 2 (Mumbai + Recycle Bin): Active\nInternal Hard Copy: Verified\nViewed by: ${userData.name} (${PERMISSIONS[currentRole].title})`;
+  document.getElementById('mImg').src = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80';
+  document.getElementById('mExtraBox').classList.add('hidden');
+  document.getElementById('mActions').innerHTML = `<button type="button" class="btn g" onclick="closeModal()">Close ✓</button>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function toast(m) {
+  const t = document.getElementById('toast');
+  t.innerText = m;
+  t.style.display = 'block';
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3000);
+}
+
+function filterDB() {
+  const v = document.getElementById('dbSearch').value.toLowerCase();
+  const f = document.getElementById('dbFilter').value.toLowerCase();
+  document.querySelectorAll('#dbTable tbody tr').forEach(r => {
+    let ok = r.innerText.toLowerCase().includes(v);
+    if (f) ok = ok && r.innerText.toLowerCase().includes(f);
+    r.style.display = ok ? '' : 'none';
+  });
+}
+
+function showSection(sec, btn, silent = false) {
+  if (sec === 'db' && currentRole === 'STAFF') { toast('Access Denied — Databases hidden for Staff'); return; }
+  if (sec === 'forensic' && currentRole !== 'CEO') { toast('Access Denied — CEO Only'); return; }
+  if (sec === 'security' && currentRole === 'STAFF') { toast('Access Denied — Security hidden for Staff'); return; }
+
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+
+  const allSections = ['sec-hero', 'sec-gallery', 'sec-forensic', 'sec-status', 'sec-backup', 'sec-flow', 'sec-db', 'sec-chart', 'sec-security'];
+  const map = {
+    all: currentRole === 'CEO' ? allSections : ['sec-hero', 'sec-gallery', 'sec-status', 'sec-backup', 'sec-flow', 'sec-db', 'sec-chart', 'sec-security'],
+    status: ['sec-status'],
+    backup: ['sec-backup', 'sec-flow'],
+    db: ['sec-db'],
+    forensic: ['sec-forensic'],
+    security: ['sec-security']
+  };
+
+  const visible = map[sec] || map.all;
+  allSections.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (id === 'sec-forensic' && currentRole !== 'CEO') {
+      el.classList.add('hidden');
+      el.style.display = 'none';
+      return;
+    }
+    const shouldShow = visible.includes(id);
+    el.classList.toggle('hidden', !shouldShow);
+    el.style.display = shouldShow ? '' : 'none';
+  });
+
+  if (visible.includes('sec-chart')) requestAnimationFrame(draw);
+  if (!silent) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('Showing: ' + (btn ? btn.innerText : sec));
+  }
+}
+
+function changeChart(t) {
+  if (t === 'security' && currentRole === 'STAFF') { toast('Access Denied — Security chart hidden for Staff'); return; }
+  chartType = t;
+  draw();
+  toast('Chart switched to ' + t.toUpperCase());
+}
+
+function draw() {
+  const c = document.getElementById('chart');
+  if (!c || c.offsetParent === null) return;
+  const ctx = c.getContext('2d');
+  const w = (c.width = Math.max(300, c.offsetWidth * 2));
+  const h = (c.height = 350);
+  ctx.clearRect(0, 0, w, h);
+
+  const base =
+    chartType === 'sync'
+      ? [0.35, 0.52, 0.48, 0.68, 0.62, 0.78, 0.74, 0.88, 0.92]
+      : chartType === 'security'
+      ? [0.85, 0.89, 0.92, 0.88, 0.94, 0.96, 0.93, 0.97, 0.99]
+      : [0.5, 0.64, 0.58, 0.75, 0.7, 0.86, 0.82, 0.79, 0.93, 0.9, 0.98];
+
+  ctx.beginPath();
+  ctx.moveTo(0, h - 36);
+  base.forEach((p, i) => {
+    const x = (i / (base.length - 1)) * w;
+    const y = h - 36 - p * (h - 110);
+    ctx.lineTo(x, y);
+  });
+  ctx.lineTo(w, h - 36);
+  ctx.closePath();
+
+  const g = ctx.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0, chartType === 'security' ? 'rgba(255,215,0,.42)' : 'rgba(46,234,154,.45)');
+  g.addColorStop(1, 'rgba(46,234,154,0)');
+  ctx.fillStyle = g;
+  ctx.fill();
+
+  ctx.strokeStyle = chartType === 'security' ? '#FFD700' : '#2EEA9A';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  base.forEach((p, i) => {
+    const x = (i / (base.length - 1)) * w;
+    const y = h - 36 - p * (h - 110);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+}
+
+setInterval(() => {
+  if (document.getElementById('dash').style.display === 'block') {
+    syncedCounter += 17;
+    const el = document.getElementById('liveSyncedRecords');
+    if (el) el.innerText = syncedCounter.toLocaleString('en-IN');
+  }
+}, 5000);
+
+window.addEventListener('resize', draw);
+setInterval(() => {
+  const dashEl = document.getElementById('dash');
+  if (dashEl && dashEl.style.display === 'block') {
+    syncedCounter += 17;
+    const el = document.getElementById('liveSyncedRecords');
+    if (el) el.innerText = syncedCounter.toLocaleString('en-IN');
+  }
+}, 5000);
+
+window.addEventListener('resize', draw);
+</script>
+</body>
+</html>
